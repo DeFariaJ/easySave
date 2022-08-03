@@ -1,3 +1,19 @@
 <h1>Users</h1>
 
-{{ myusers | safe }}
+<table border="1">
+  {% for x in myusers %}
+  <tr>
+    <td><a href="update/{{ x.id }}">{{ x.id}}</a></td>
+    <td>{{ x.firstname }}</td>
+    <td>{{ x.lastname }}</td>
+    <td>{{ x.age }}</td>
+    <td>{{ x.country }}</td>
+    <td>{{ x.email_field }}</td>
+    <td><a href="delete/{{ x.id }}">delete</a></td>
+  </tr>
+  {% endfor %}
+</table>
+
+<p>
+  <a href="add/">Add user</a>
+</p>
