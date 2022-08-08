@@ -1,0 +1,12 @@
+<h1>Bills</h1>
+
+<table border="1">
+  {% for x in mybills %}
+  <tr>
+    <td>{{ x.id }}</td>
+    <td>{{ x.fixed_bills }}</td>
+    <td>{{ x.fixed_bills_amount }}</td>
+    <td>{{ x.pay_date }}</td>
+  </tr>
+  {% endfor %}
+</table>

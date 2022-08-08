@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+
+<h1>Bills Page</h1>
+
+<form method="post" , action="addbill">
+  {% csrf_token %} {{form.as_p}}
+
+  <button type="submit" , name="save">Create new bill</button>
+</form>
