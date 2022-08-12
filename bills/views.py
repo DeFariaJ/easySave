@@ -27,9 +27,38 @@ def add(request):
 
 
 def addbill(request):
-    x = request.POST["bill"]
-    y = request.POST["amount"]
-    z = request.POST["date"]
+    x = request.POST["fixed_bills"]
+    y = request.POST["fixed_bills_amount"]
+    z = request.POST["pay_date"]
     bill = Bills(fixed_bills=x, fixed_bills_amount=y, pay_date=z)
     bill.save()
-    return HttpResponseRedirect(reverse, ("index_bills.html"))
+    return HttpResponseRedirect(reverse("index_bills"))
+
+
+def deletebill(request, id):
+    bill = Bills.objects.get(id=id)
+    bill.delete()
+    return HttpResponseRedirect(reverse("index_bills"))
+
+
+def updatebill(request, id):
+    form = PayDay()
+    mybill = Bills.objects.get(id=id)
+    context = {
+        "mybill": mybill,
+        "form": form,
+    }
+    return render(request, "update_bills.html", context)
+
+
+def updatebillrecord(request, id):
+    billrecord = request.POST["fixed_bills"]
+    bill_amount = request.POST["fixed_bills_amount"]
+    pay_date = request.POST["pay_date"]
+
+    bill = Bills.objects.get(id=id)
+    bill.fixed_bills = billrecord
+    bill.fixed_bills_amount = bill_amount
+    bill.pay_date = pay_date
+    bill.save()
+    return HttpResponseRedirect(reverse("index_bills"))

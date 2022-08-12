@@ -1,0 +1,7 @@
+<h1>Update bill</h1>
+
+<form action="updaterecordbill/{{ mybill.id }}" method="post">
+  {% csrf_token %} {{form.as_p}}
+
+  <button type="submit" , name="save">Update bill</button>
+</form>
