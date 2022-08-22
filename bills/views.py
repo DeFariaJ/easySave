@@ -42,8 +42,8 @@ def deletebill(request, id):
 
 
 def updatebill(request, id):
-    form = PayDay()
     mybill = Bills.objects.get(id=id)
+    form = PayDay(instance=mybill)
     context = {
         "mybill": mybill,
         "form": form,

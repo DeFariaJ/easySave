@@ -1,6 +1,39 @@
-<h1>Bills</h1>
+<style type="text/css">
+  .sidenav {
+    height: 100%;
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: lightgreen;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
 
-<table border="1">
+  .sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25;
+    font: bold;
+    display: block;
+  }
+
+  .sidenav a:hover {
+    color: black;
+  }
+
+  table,
+  th,
+  td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+</style>
+
+<h1 align="center">Bills</h1>
+
+<table border="1" align="center" ,>
   {% for x in mybills %}
   <tr>
     <td><a href="update/{{ x.id }}">{{ x.id }}</a></td>
@@ -12,6 +45,7 @@
   {% endfor %}
 </table>
 
-<p>
+<div class="sidenav">
   <a href="add/">Add new bill</a>
-</p>
+  <a href="{% url 'index' %}">Go back to users</a>
+</div>
