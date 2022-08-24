@@ -1,4 +1,6 @@
 import datetime
+from turtle import width
+from unicodedata import decimal
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
@@ -6,6 +8,7 @@ from .forms import PayDay
 from django.template import loader
 from .models import Bills
 import pandas as pd
+import plotly.express as px
 
 # Create your views here.
 
@@ -14,15 +17,35 @@ def index(request):
     mybills = Bills.objects.all().values()
     template = loader.get_template("index_bills.html")
     ######
-    print("**************************")
     data = pd.DataFrame(mybills)
-    print(data)
-    x = sum(data["fixed_bills_amount"])
-    print(x)
+    total = sum(data["fixed_bills_amount"])
+    my_salary = 1240.00
+    bills_percent = (float(total)/my_salary)*100
+    bills_percent = round(bills_percent)
+    #######
+    fig = px.pie(data, values=data["fixed_bills_amount"],
+                 names=data["fixed_bills"], title="")
+
+    fig.update_layout(
+        autosize=False,
+        width=600,
+        height=600,
+    )
+    pie_chart = fig.to_html()
+
     context = {
         "mybills": mybills,
-        "total_amount": x,
+        "total_amount": total,
+        "bills_percent": bills_percent,
+        "pie_chart": pie_chart,
     }
+    #########
+    sept_sum = []
+    for x in data["pay_date"]:
+        x = str(x)
+        if x[5:7] == "09":
+            print("September")
+
     return HttpResponse(template.render(context, request))
 
 

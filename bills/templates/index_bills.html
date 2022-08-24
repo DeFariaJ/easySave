@@ -29,9 +29,19 @@
 
 <br />
 
-<h1>Total amount to pay this months on fixed bills:</h1>
+<h3 style="font-size: large">Total amount to pay this month given current bills:</h3>
+<p style="font-size: xx-large;">{{ total_amount }} €</p>
+<br>
+<h3 style="font-size: large">This is a percentage of your budget of:</h3>
+<p style="font-size: xx-large;"> {{bills_percent}} %</p>
 
-{{ total_amount }}
+
+
+{{ pie_chart|safe}}
+
+
+
+
 
 
 {% endblock %}
