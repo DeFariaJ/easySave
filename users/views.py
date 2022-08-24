@@ -1,17 +1,32 @@
+from re import template
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
 from .models import Users
 import pandas as pd
+from .forms import UsersForm
 
 
 def index(request):
+    """View function for home page of the site"""
+
     myusers = Users.objects.all().values()
-    template = loader.get_template("index.html")
+    template = loader.get_template("index2.html")
     context = {
         "myusers": myusers
     }
     return HttpResponse(template.render(context, request))
+
+
+# def index(request):
+    #"""View function for home page of the site"""
+
+    #myusers = Users.objects.all().values()
+    #template = loader.get_template("index.html")
+    # context = {
+    # "myusers": myusers
+    # }
+    # return HttpResponse(template.render(context, request))
 
 
 def add(request):

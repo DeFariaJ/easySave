@@ -5,6 +5,7 @@ from django.urls import reverse
 from .forms import PayDay
 from django.template import loader
 from .models import Bills
+import pandas as pd
 
 # Create your views here.
 
@@ -12,8 +13,15 @@ from .models import Bills
 def index(request):
     mybills = Bills.objects.all().values()
     template = loader.get_template("index_bills.html")
+    ######
+    print("**************************")
+    data = pd.DataFrame(mybills)
+    print(data)
+    x = sum(data["fixed_bills_amount"])
+    print(x)
     context = {
         "mybills": mybills,
+        "total_amount": x,
     }
     return HttpResponse(template.render(context, request))
 

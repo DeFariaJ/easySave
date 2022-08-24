@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %} {% block content %}
+
+<h1>Easy Saving Home</h1>
+
+<p>
+  Welcome to EasySaving, a website that helps you to manage your personal
+  expenses. Developed by <em>Gonçalo Leiria</em>
+</p>
+
+<h2>Dynamic content goes bellow</h2>
+<p>We have the following users:</p>
+
+{% endblock %}
+
+<!-- Add additional CSS in static file -->
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}" />
