@@ -2,12 +2,12 @@
 
 {% extends "base_generic.html" %} {% block content %}
 
-<h1>Bills Page</h1>
+<h1>Add new bill</h1>
 
 <form method="post" , action="addbill/">
   {% csrf_token %} {{form.as_p}}
 
-  <button type="submit" , name="save">Create new bill</button>
+  <button type="button" class="btn btn-success mx-3">Add</button>
 </form>
 
 {% endblock %}
