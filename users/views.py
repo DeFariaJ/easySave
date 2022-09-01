@@ -11,22 +11,11 @@ def index(request):
     """View function for home page of the site"""
 
     myusers = Users.objects.all().values()
-    template = loader.get_template("index2.html")
+    template = loader.get_template("home_page.html")
     context = {
         "myusers": myusers
     }
     return HttpResponse(template.render(context, request))
-
-
-# def index(request):
-    #"""View function for home page of the site"""
-
-    #myusers = Users.objects.all().values()
-    #template = loader.get_template("index.html")
-    # context = {
-    # "myusers": myusers
-    # }
-    # return HttpResponse(template.render(context, request))
 
 
 def add(request):
