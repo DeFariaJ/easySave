@@ -56,7 +56,7 @@ ROOT_URLCONF = 'easySave.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ["easySave/templates/"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

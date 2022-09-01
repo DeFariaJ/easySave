@@ -1,5 +1,4 @@
 import datetime
-from turtle import width
 from unicodedata import decimal
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
@@ -54,7 +53,7 @@ def add(request):
     context = {
         "form": form
     }
-    return render(request, "test_forms.html", context)
+    return render(request, "add_bills.html", context)
 
 
 def addbill(request):

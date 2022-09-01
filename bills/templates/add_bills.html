@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %} {% block content %}
+
+<h1>Bills Page</h1>
+
+<form method="post" , action="addbill/">
+  {% csrf_token %} {{form.as_p}}
+
+  <button type="submit" , name="save">Create new bill</button>
+</form>
+
+{% endblock %}
+
+<!-- Add additional CSS in static file -->
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}" />
