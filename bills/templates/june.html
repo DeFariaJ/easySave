@@ -2,7 +2,7 @@
 
 {% extends "base.html" %} {% block content %}
 
-<h1>Current Bills</h1>
+<h1>June</h1>
 <table class="table table-striped">
   
   <thead></thead>
@@ -18,7 +18,7 @@
 <tbody></tbody>
 {% for x in mybills %}
 
-    <td>{{ x.id }}</td>
+    <td>{{ x.id }}</a></td>
     <td>{{ x.fixed_bills }}</td>
     <td>{{ x.fixed_bills_amount }}</td>
     <td>{{ x.pay_date }}</td>
@@ -28,8 +28,12 @@
 </tbody>
   {% endfor %}
 </table>
-
+<a href="{% url 'add' %}" class="btn btn-success btn-lg" tabindex="-1" role="button">Add bill</a>
 <br />
+
+
+
+{{ pie_chart|safe}}
 
 <h3 style="font-size: large">Total amount to pay this month given current bills:</h3>
 <p style="font-size: xx-large;">{{ total_amount }} €</p>
@@ -39,9 +43,6 @@
 
 
 
-{{ pie_chart|safe}}
-
-
 {% endblock %}
 
 
@@ -49,6 +50,3 @@
 <!-- Add additional CSS in static file -->
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
-
-
-

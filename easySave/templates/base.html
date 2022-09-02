@@ -41,7 +41,7 @@
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="#">Add bill</a>
+              <a class="nav-link active" href="{% url 'add' %}">Add bill</a>
             </li>
             <li class="nav-item dropdown">
               <a
@@ -54,20 +54,28 @@
                 Month
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">January</a></li>
+                <li>
+                  <a class="dropdown-item" href="#">January</a>
+                </li>
                 <li><a class="dropdown-item" href="#">February</a></li>
                 <li><a class="dropdown-item" href="#">March</a></li>
                 <li><a class="dropdown-item" href="#">April</a></li>
                 <li><a class="dropdown-item" href="#">May</a></li>
-                <li><a class="dropdown-item" href="#">June</a></li>
-                <li><a class="dropdown-item" href="#">July</a></li>
-                <li><a class="dropdown-item" href="#">August</a></li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'june' %}">June</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'july' %}">July</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'august' %}">August</a>
+                </li>
                 <li><a class="dropdown-item" href="#">September</a></li>
                 <li><a class="dropdown-item" href="#">October</a></li>
                 <li><a class="dropdown-item" href="#">November</a></li>
                 <li><a class="dropdown-item" href="#">December</a></li>
                 <li>
-                  <a class="dropdown-item active bg-secondary" href="#"
+                  <a class="dropdown-item active bg-dark" href="#"
                     >Total Expenses</a
                   >
                 </li>
@@ -82,6 +90,7 @@
     <div class="col-md-11 text-center my-5">
       {% block content %} {% endblock %}
     </div>
+
     <br />
     <br />
 

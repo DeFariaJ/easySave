@@ -2,12 +2,12 @@
 
 {% extends "base.html" %} {% block content %}
 
-<h1>Bills Page</h1>
-
 <form method="post" , action="addbill/">
   {% csrf_token %} {{form.as_p}}
 
-  <button type="submit" , name="save">Create new bill</button>
+  <button type="submit" , name="save" , class="btn btn-success">
+    Create new bill
+  </button>
 </form>
 
 {% endblock %}
