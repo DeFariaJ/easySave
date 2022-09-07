@@ -6,12 +6,17 @@ urlpatterns = [
     path("", views.index, name="index_bills"),
     path("add/", views.add, name="add"),
     path("add/addbill/", views.addbill, name="addbill"),
+
     ######################
     # months index
     #######################
     path("june/", views.june, name="june"),
     path("july/", views.july, name="july"),
     path("august/", views.august, name="august"),
+    path("september/", views.september, name="september"),
+    # total expenses
+    path("total/", views.total, name="total"),
+
     #######################
     # delete
     #######################
@@ -19,6 +24,8 @@ urlpatterns = [
     path("june/delete/<int:id>", views.delete_jun_bill, name="delete_jun_bill"),
     path("july/delete/<int:id>", views.delete_jul_bill, name="delete_jul_bill"),
     path("august/delete/<int:id>", views.delete_aug_bill, name="delete_aug_bill"),
+    path("september/delete/<int:id>",
+         views.delete_sep_bill, name="delete_sep_bill"),
     #######################
     # update pages
     #######################
@@ -26,6 +33,8 @@ urlpatterns = [
     path("june/update/<int:id>", views.update_jun_bill, name="update_jun_bill"),
     path("july/update/<int:id>", views.update_jul_bill, name="update_jul_bill"),
     path("august/update/<int:id>", views.update_aug_bill, name="update_aug_bill"),
+    path("september/update/<int:id>",
+         views.update_sep_bill, name="update_sep_bill"),
     #######################
     # update record
     #######################
@@ -37,5 +46,7 @@ urlpatterns = [
          views.update_jul_billrecord, name="update_jul_billrecord"),
     path("august/update/updaterecordbill/<int:id>",
          views.update_aug_billrecord, name="update_aug_billrecord"),
+    path("september/update/updaterecordbill/<int:id>",
+         views.update_sep_billrecord, name="update_sep_billrecord"),
 
 ]

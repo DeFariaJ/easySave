@@ -70,12 +70,18 @@
                 <li>
                   <a class="dropdown-item" href="{% url 'august' %}">August</a>
                 </li>
-                <li><a class="dropdown-item" href="#">September</a></li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'september' %}"
+                    >September</a
+                  >
+                </li>
                 <li><a class="dropdown-item" href="#">October</a></li>
                 <li><a class="dropdown-item" href="#">November</a></li>
                 <li><a class="dropdown-item" href="#">December</a></li>
                 <li>
-                  <a class="dropdown-item active bg-dark" href="#"
+                  <a
+                    class="dropdown-item active bg-dark"
+                    href="{% url 'total' %}"
                     >Total Expenses</a
                   >
                 </li>

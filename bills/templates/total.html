@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %} {% block content %}
+<!--...-->
+<table class="table">
+  <tr>
+    <th>{{ bar_chart|safe }}</th>
+    <th>{{ line_chart|safe }}</th>
+  </tr>
+</table>
+
+<!--...-->
+{% endblock %}
