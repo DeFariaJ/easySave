@@ -10,6 +10,8 @@ from django.template import loader
 from .models import August, Bills, January, July, June, September
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
+from .utils import gauge_chart
 
 # Create your views here.
 
@@ -67,11 +69,21 @@ def june(request):
     )
     pie_chart = fig.to_html()
 
+    # Gauge Chart
+    gauge_fig = gauge_chart(total)
+    gauge_fig.update_layout(
+        autosize=False,
+        width=900,
+        height=300,
+    )
+    gauge_fig = gauge_fig.to_html()
+
     context = {
         "mybills": mybills,
         "total_amount": total,
         "bills_percent": bills_percent,
         "pie_chart": pie_chart,
+        "gauge_fig": gauge_fig
     }
 
     return HttpResponse(template.render(context, request))
@@ -409,16 +421,20 @@ def total(request):
     june = June.objects.all().values()
     july = July.objects.all().values()
     august = August.objects.all().values()
+    september = September.objects.all().values()
 
     df_june = pd.DataFrame(june)
     df_july = pd.DataFrame(july)
     df_august = pd.DataFrame(august)
+    df_september = pd.DataFrame(september)
 
     # Internet
     month_ll_NOS = [["June", int(df_june.loc[df_june.fixed_bills == "NOS", "fixed_bills_amount"])],
-                    ["July", int(df_july.loc[df_june.fixed_bills ==
-                                             "NOS", "fixed_bills_amount"])],
-                    ["August", int(df_august.loc[df_june.fixed_bills == "NOS", "fixed_bills_amount"])]]
+                    ["July", int(df_july.loc[df_july.fixed_bills ==
+                                 "NOS", "fixed_bills_amount"])],
+                    ["August", int(
+                        df_august.loc[df_august.fixed_bills == "NOS", "fixed_bills_amount"])],
+                    ["September", int(df_september.loc[df_september.fixed_bills == "NOS", "fixed_bills_amount"])]]
 
     df_total = pd.DataFrame(month_ll_NOS, columns=["Month", "Amount(€)"])
     fig = px.bar(df_total, x="Month", y="Amount(€)", color="Month")
@@ -469,11 +485,16 @@ def total(request):
     )
     line_chart = fig2.to_html()
 
+    # Gauge Chart
+    fig3 = gauge_chart(800)
+    fig3 = fig3.to_html()
+
     template = loader.get_template("total.html")
     context = {
         "june": june,
         "july": july,
         "bar_chart": bar_chart,
         "line_chart": line_chart,
+        "fig3": fig3,
     }
     return HttpResponse(template.render(context, request))
