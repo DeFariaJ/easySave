@@ -1,54 +1,7 @@
 <!DOCTYPE html>
 
-{% extends "base.html" %} {% block content %}
-
-<h1>Current Bills</h1>
-<table class="table table-striped">
-  
-  <thead></thead>
-  <tr>
-    <th scope="col">#</th>
-    <th scope="col">Bill</th>
-    <th scope="col">Amount(€)</th>
-    <th scope="col">Pay Date</th>
-    <th scope="col"></th>
-    <th scope="col"></th>
-  </tr>
-</thead>
-<tbody></tbody>
-{% for x in mybills %}
-
-    <td>{{ x.id }}</td>
-    <td>{{ x.fixed_bills }}</td>
-    <td>{{ x.fixed_bills_amount }}</td>
-    <td>{{ x.pay_date }}</td>
-    <td><a href="update/{{ x.id }}", class="btn btn-secondary">edit</a></td>
-    <td><a href="delete/{{ x.id }}", class="btn btn-danger">delete</a></td>
-  </tr>
-</tbody>
-  {% endfor %}
-</table>
-
-<br />
-
-<h3 style="font-size: large">Total amount to pay this month given current bills:</h3>
-<p style="font-size: xx-large;">{{ total_amount }} €</p>
-<br>
-<h3 style="font-size: large">This is a percentage of your budget of:</h3>
-<p style="font-size: xx-large;"> {{bills_percent}} %</p>
-
-
-
-{{ pie_chart|safe}}
-
-
-{% endblock %}
-
-
+{% extends "base.html" %}
 
 <!-- Add additional CSS in static file -->
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
-
-
-

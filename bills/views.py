@@ -11,40 +11,12 @@ from .models import August, Bills, January, July, June, September
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-from .utils import gauge_chart
-
-# Create your views here.
+from .utils import gauge_chart, pie_chart
 
 
 def index(request):
-    mybills = Bills.objects.all().values()
     template = loader.get_template("index_bills.html")
-    ######
-    data = pd.DataFrame(mybills)
-    total = sum(data["fixed_bills_amount"])
-    my_salary = 1240.00
-    bills_percent = (float(total)/my_salary)*100
-    bills_percent = round(bills_percent)
-    #######
-    fig = px.pie(data, values=data["fixed_bills_amount"],
-                 names=data["fixed_bills"], title="")
-
-    fig.update_layout(
-        autosize=False,
-        width=600,
-        height=600,
-    )
-    pie_chart = fig.to_html()
-
-    context = {
-        "mybills": mybills,
-        "total_amount": total,
-        "bills_percent": bills_percent,
-        "pie_chart": pie_chart,
-    }
-
-    return HttpResponse(template.render(context, request))
-
+    return HttpResponse(template.render())
 
 ###### JUNE ########
 
@@ -52,37 +24,26 @@ def index(request):
 def june(request):
     mybills = June.objects.all().values()
     template = loader.get_template("june.html")
-    ######
+
     data = pd.DataFrame(mybills)
     total = sum(data["fixed_bills_amount"])
     my_salary = 1240.00
     bills_percent = (float(total)/my_salary)*100
     bills_percent = round(bills_percent)
-    #######
-    fig = px.pie(data, values=data["fixed_bills_amount"],
-                 names=data["fixed_bills"], title="")
 
-    fig.update_layout(
-        autosize=False,
-        width=600,
-        height=600,
-    )
-    pie_chart = fig.to_html()
+    # pie chart
+    pie = pie_chart(data)
+    pie = pie.to_html()
 
     # Gauge Chart
     gauge_fig = gauge_chart(total)
-    gauge_fig.update_layout(
-        autosize=False,
-        width=900,
-        height=300,
-    )
     gauge_fig = gauge_fig.to_html()
 
     context = {
         "mybills": mybills,
         "total_amount": total,
         "bills_percent": bills_percent,
-        "pie_chart": pie_chart,
+        "pie": pie,
         "gauge_fig": gauge_fig
     }
 
@@ -94,28 +55,27 @@ def june(request):
 def july(request):
     mybills = July.objects.all().values()
     template = loader.get_template("july.html")
-    ######
+
     data = pd.DataFrame(mybills)
     total = sum(data["fixed_bills_amount"])
     my_salary = 1240.00
     bills_percent = (float(total)/my_salary)*100
     bills_percent = round(bills_percent)
-    #######
-    fig = px.pie(data, values=data["fixed_bills_amount"],
-                 names=data["fixed_bills"], title="")
 
-    fig.update_layout(
-        autosize=False,
-        width=600,
-        height=600,
-    )
-    pie_chart = fig.to_html()
+    # pie chart
+    pie = pie_chart(data)
+    pie = pie.to_html()
+
+    # Gauge Chart
+    gauge_fig = gauge_chart(total)
+    gauge_fig = gauge_fig.to_html()
 
     context = {
         "mybills": mybills,
         "total_amount": total,
         "bills_percent": bills_percent,
-        "pie_chart": pie_chart,
+        "pie": pie,
+        "gauge_fig": gauge_fig,
     }
 
     return HttpResponse(template.render(context, request))
@@ -133,21 +93,20 @@ def august(request):
     bills_percent = (float(total)/my_salary)*100
     bills_percent = round(bills_percent)
     #######
-    fig = px.pie(data, values=data["fixed_bills_amount"],
-                 names=data["fixed_bills"], title="")
+    # pie chart
+    pie = pie_chart(data)
+    pie = pie.to_html()
 
-    fig.update_layout(
-        autosize=False,
-        width=600,
-        height=600,
-    )
-    pie_chart = fig.to_html()
+    # Gauge Chart
+    gauge_fig = gauge_chart(total)
+    gauge_fig = gauge_fig.to_html()
 
     context = {
         "mybills": mybills,
         "total_amount": total,
         "bills_percent": bills_percent,
-        "pie_chart": pie_chart,
+        "pie": pie,
+        "gauge_fig": gauge_fig,
     }
 
     return HttpResponse(template.render(context, request))
@@ -164,23 +123,21 @@ def september(request):
     bills_percent = (float(total)/my_salary)*100
     bills_percent = round(bills_percent)
     #######
-    fig = px.pie(data, values=data["fixed_bills_amount"],
-                 names=data["fixed_bills"], title="")
+    # pie chart
+    pie = pie_chart(data)
+    pie = pie.to_html()
 
-    fig.update_layout(
-        autosize=False,
-        width=600,
-        height=600,
-    )
-    pie_chart = fig.to_html()
+    # Gauge Chart
+    gauge_fig = gauge_chart(total)
+    gauge_fig = gauge_fig.to_html()
 
     context = {
         "mybills": mybills,
         "total_amount": total,
         "bills_percent": bills_percent,
-        "pie_chart": pie_chart,
+        "pie": pie,
+        "gauge_fig": gauge_fig,
     }
-
     return HttpResponse(template.render(context, request))
 
 #############################################################################
@@ -465,7 +422,12 @@ def total(request):
 
     df_total_Water = pd.DataFrame(
         month_ll_water, columns=["Month", "Amount(€)"])
-    fig2 = px.line(df_total_Water, x="Month", y="Amount(€)",
+    test_list = [35, 15, 17]
+
+    df_total_Water["energy"] = test_list
+    print(df_total_Water)
+
+    fig2 = px.line(df_total_Water, x="Month", y=["Amount(€)", "energy"],
                    range_y=[0, 60], markers=True)
     fig2.update_layout(
         title_font_color="black",
@@ -485,16 +447,11 @@ def total(request):
     )
     line_chart = fig2.to_html()
 
-    # Gauge Chart
-    fig3 = gauge_chart(800)
-    fig3 = fig3.to_html()
-
     template = loader.get_template("total.html")
     context = {
         "june": june,
         "july": july,
         "bar_chart": bar_chart,
         "line_chart": line_chart,
-        "fig3": fig3,
     }
     return HttpResponse(template.render(context, request))

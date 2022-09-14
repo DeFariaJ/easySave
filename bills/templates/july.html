@@ -30,10 +30,12 @@
 </table>
 <a href="{% url 'add' %}" class="btn btn-success btn-lg" tabindex="-1" role="button">Add bill</a>
 <br />
-
-
-
-{{ pie_chart|safe}}
+<table class="table">
+  <tr>
+    <th>{{ pie|safe }}</th>
+    <th>{{ gauge_fig|safe }}</th>
+  </tr>
+</table>
 
 <h3 style="font-size: large">Total amount to pay this month given current bills:</h3>
 <p style="font-size: xx-large;">{{ total_amount }} €</p>
