@@ -415,29 +415,35 @@ def total(request):
     bar_chart = fig.to_html()
 
     # water
-    month_ll_water = [["June", int(df_june.loc[df_june.fixed_bills == "Water", "fixed_bills_amount"])],
-                      ["July", int(df_july.loc[df_june.fixed_bills ==
-                                   "Water", "fixed_bills_amount"])],
-                      ["August", int(df_august.loc[df_june.fixed_bills == "Water", "fixed_bills_amount"])]]
+    month_ll_water = [["June", float(df_june.loc[df_june.fixed_bills == "Water", "fixed_bills_amount"])],
+                      ["July", float(df_july.loc[df_july.fixed_bills ==
+                                                 "Water", "fixed_bills_amount"])],
+                      ["August", float(
+                          df_august.loc[df_august.fixed_bills == "Water", "fixed_bills_amount"])],
+                      ["September", float(df_september.loc[df_september.fixed_bills == "Water", "fixed_bills_amount"])]]
 
     df_total_Water = pd.DataFrame(
-        month_ll_water, columns=["Month", "Amount(€)"])
-    test_list = [35, 15, 17]
+        month_ll_water, columns=["Month", "Water"])
 
-    df_total_Water["energy"] = test_list
-    print(df_total_Water)
+    energy_list = [float(df_june.loc[df_june.fixed_bills == "Gold energy", "fixed_bills_amount"]), float(df_july.loc[df_july.fixed_bills == "Gold energy", "fixed_bills_amount"]), float(
+        df_august.loc[df_august.fixed_bills == "Gold energy", "fixed_bills_amount"]),
+        float(df_september.loc[df_september.fixed_bills == "Gold energy", "fixed_bills_amount"])]
+    print(energy_list)
+    df_total_Water["Energy"] = energy_list
 
-    fig2 = px.line(df_total_Water, x="Month", y=["Amount(€)", "energy"],
+    fig2 = px.line(df_total_Water, x="Month", y=["Water", "Energy"],
                    range_y=[0, 60], markers=True)
     fig2.update_layout(
         title_font_color="black",
-        showlegend=False,
+        showlegend=True,
+        legend_title_text="",
         autosize=False,
         width=600,
         height=400,
         xaxis_title="",
+        yaxis_title="Amount(€)",
         title={
-            "text": "<b>Water</b>",
+            "text": "<b>Water + Energy</b>",
             "y": 0.99,
             "x": 0.5,
             "xanchor": "center",
