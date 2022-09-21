@@ -5,14 +5,16 @@ from django.template import loader
 from django.urls import reverse
 import pandas as pd
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import login, logout
 
 
 def signup_view(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-        # later we'll log user in here
+            user = form.save()
+            login(request, user)
+
         return redirect("total")
     else:
 
@@ -24,11 +26,17 @@ def signup_view(request):
 
 
 def login_view(request):
+
     if request.method == "POST":
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
-            # login uuser
-            return redirect("total")
+            # log user in
+            user = form.get_user()
+            login(request, user)
+            if "next" in request.POST:
+                return redirect(request.POST.get("next"))
+            else:
+                return redirect("total")
 
     else:
         form = AuthenticationForm()
@@ -36,3 +44,9 @@ def login_view(request):
         "form": form,
     }
     return render(request, "login.html", context)
+
+
+def logout_view(request):
+    if request.method == "POST":
+        logout(request)
+        return redirect("login")

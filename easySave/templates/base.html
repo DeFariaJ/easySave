@@ -87,9 +87,19 @@
                 </li>
               </ul>
             </li>
+            <!-- logout will live here-->
           </ul>
         </div>
       </div>
+    </nav>
+
+    <nav>
+      <li>
+        <form class="logout/link" action="{% url 'logout' %}" method="post">
+          {% csrf_token %}
+          <button type="submit">Logout</button>
+        </form>
+      </li>
     </nav>
 
     <!-- display headings -->

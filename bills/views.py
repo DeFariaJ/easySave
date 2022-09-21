@@ -12,6 +12,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 from .utils import gauge_chart, pie_chart
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -145,6 +146,7 @@ def september(request):
 #############################################################################
 
 
+@login_required(login_url="login")
 def add(request):
     form = PayDay()
     context = {
