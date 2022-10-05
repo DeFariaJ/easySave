@@ -15,7 +15,7 @@ def signup_view(request):
             user = form.save()
             login(request, user)
 
-        return redirect("total")
+        return redirect("landingpage")
     else:
 
         form = UserCreationForm()
@@ -36,7 +36,7 @@ def login_view(request):
             if "next" in request.POST:
                 return redirect(request.POST.get("next"))
             else:
-                return redirect("total")
+                return redirect("landingpage")
 
     else:
         form = AuthenticationForm()

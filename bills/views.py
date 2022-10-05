@@ -165,7 +165,9 @@ def addbill(request):
         return HttpResponseRedirect(reverse("january"))
     elif z[5:7] == "06":
         bill = June(fixed_bills=x, fixed_bills_amount=y, pay_date=z)
-        bill.save()
+        instance = bill.save(commit=False)
+        instance.user = request.User
+        instance.save()
         return HttpResponseRedirect(reverse("june"))
     elif z[5:7] == "07":
         bill = July(fixed_bills=x, fixed_bills_amount=y, pay_date=z)
@@ -418,18 +420,16 @@ def total(request):
 
     # water
     month_ll_water = [["June", float(df_june.loc[df_june.fixed_bills == "Water", "fixed_bills_amount"])],
-                      ["July", float(df_july.loc[df_july.fixed_bills ==
-                                                 "Water", "fixed_bills_amount"])],
+                      ["July", float(
+                          df_july.loc[df_july.fixed_bills == "Water", "fixed_bills_amount"])],
                       ["August", float(
                           df_august.loc[df_august.fixed_bills == "Water", "fixed_bills_amount"])],
                       ["September", float(df_september.loc[df_september.fixed_bills == "Water", "fixed_bills_amount"])]]
 
-    df_total_Water = pd.DataFrame(
-        month_ll_water, columns=["Month", "Water"])
+    df_total_Water = pd.DataFrame(month_ll_water, columns=["Month", "Water"])
 
     energy_list = [float(df_june.loc[df_june.fixed_bills == "Gold energy", "fixed_bills_amount"]), float(df_july.loc[df_july.fixed_bills == "Gold energy", "fixed_bills_amount"]), float(
-        df_august.loc[df_august.fixed_bills == "Gold energy", "fixed_bills_amount"]),
-        float(df_september.loc[df_september.fixed_bills == "Gold energy", "fixed_bills_amount"])]
+        df_august.loc[df_august.fixed_bills == "Gold energy", "fixed_bills_amount"]), float(df_september.loc[df_september.fixed_bills == "Gold energy", "fixed_bills_amount"])]
     print(energy_list)
     df_total_Water["Energy"] = energy_list
 
