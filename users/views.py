@@ -13,15 +13,16 @@ def signup_view(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
+            # login
             login(request, user)
 
-        return redirect("landingpage")
+            return redirect("landingpage")
     else:
-
         form = UserCreationForm()
-        context = {
-            "form": form,
-        }
+
+    context = {
+        "form": form,
+    }
     return render(request, "signup.html", context)
 
 
