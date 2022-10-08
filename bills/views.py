@@ -13,6 +13,8 @@ import plotly.graph_objects as go
 from .utils import gauge_chart, pie_chart
 from django.contrib.auth.decorators import login_required
 
+# Everything is ok mate. Take it easy.
+
 
 def index(request):
     template = loader.get_template("index_bills.html")
